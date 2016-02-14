@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Black Rose</title>
+    <description>Towards a meta-free programming language.
+</description>
+    <link>http://blackro-se.github.io//</link>
+    <atom:link href="http://blackro-se.github.io//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 14 Feb 2016 12:41:56 +0100</pubDate>
+    <lastBuildDate>Sun, 14 Feb 2016 12:41:56 +0100</lastBuildDate>
+    <generator>Jekyll v3.1.1</generator>
+    
+
+    
+      <item>
+        <title>Parsing via chained recursive-descent</title>
+        <description>
+        </description>
+        <pubDate>Sun, 01 Nov 2015 00:00:00 +0100</pubDate>
+        <link>http://blackro-se.github.io/blog/parsing-chain/</link>
+        <guid isPermaLink="true">http://blackro-se.github.io/blog/parsing-chain/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Lexing III: Nested power!</title>
+        <description>
+        </description>
+        <pubDate>Sun, 04 Oct 2015 00:00:00 +0200</pubDate>
+        <link>http://blackro-se.github.io/blog/lexer-3/</link>
+        <guid isPermaLink="true">http://blackro-se.github.io/blog/lexer-3/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Lexing II: readtable–macro parsing</title>
+        <description>
+        </description>
+        <pubDate>Sun, 30 Aug 2015 02:00:00 +0200</pubDate>
+        <link>http://blackro-se.github.io/blog/lexer-2/</link>
+        <guid isPermaLink="true">http://blackro-se.github.io/blog/lexer-2/</guid>
+        
+        
+        <category>lexing,</category>
+        
+        <category>syntax</category>
+        
+      </item>
+    
+      <item>
+        <title>Lexing I: the off-side rule</title>
+        <description>
+        </description>
+        <pubDate>Sun, 02 Aug 2015 02:00:00 +0200</pubDate>
+        <link>http://blackro-se.github.io/blog/lexer-1/</link>
+        <guid isPermaLink="true">http://blackro-se.github.io/blog/lexer-1/</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
