@@ -183,6 +183,35 @@ We expect the number of blocks to be proportional to the number of lines in the 
 
 <p>In order to process indentation, a simple change to this scheme is needed: the characters at the beginning of a new line are preprocessed, the number of leading whitespace characters are used in order to know how the indentation level changed. More precisely, a stack <code class="highlighter-rouge">S</code> is maintained, recording the indentation levels (i.e. the number of whitespace characters) of all the blocks under which the current block is nested. Here is some pseudo-code:</p>
 
+<div class="highlight"><pre><code><span class="">S</span> :<span class="">=</span> <span class="">Int</span><span class="p">[</span><span class="p">]</span>
+<span class="">S</span><span class="">.</span><span class="">push</span><span class="p">(</span><span class="">0</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="k">not</span> <span class="">EOF</span><span class="p">(</span><span class="p">)</span>:
+    <span class="">N</span> :<span class="">=</span> <span class="">count-number-of-whitespaces</span><span class="p">(</span><span class="p">)</span>
+
+    <span class="c">#</span><span class="c"> Emit INDENT/DEDENT tokens as appropriate</span>
+    <span class="k">if</span> <span class="">N</span> <span class="">&gt;</span> <span class="">top</span><span class="p">(</span><span class="">S</span><span class="p">)</span>:
+        <span class="">S</span><span class="">.</span><span class="">append</span><span class="p">(</span><span class="">N</span><span class="p">)</span>
+        <span class="nb">emit</span> <span class="">INDENT</span>
+    <span class="k">elif</span> <span class="">N</span> <span class="">&lt;</span> <span class="">top</span><span class="p">(</span><span class="">S</span><span class="p">)</span>:
+        <span class="k">while</span> <span class="">N</span> <span class="">&lt;</span> <span class="">top</span><span class="p">(</span><span class="">S</span><span class="p">)</span>:
+            <span class="">pop</span><span class="p">(</span><span class="">S</span><span class="p">)</span>
+            <span class="nb">emit</span> <span class="">DEDENT</span>
+        <span class="k">if</span> <span class="">N</span> <span class="">≠</span> <span class="">top</span><span class="p">(</span><span class="">S</span><span class="p">)</span>:
+            <span class="k">raise</span> <span class="">«Indentation Error»</span>
+    <span class="k">assert</span> <span class="">N</span> <span class="">=</span> <span class="">top</span><span class="p">(</span><span class="">S</span><span class="p">)</span>
+
+    <span class="c">#</span><span class="c"> Feed the remaining characters to the compiled regexps,
+      which may in turn emit various tokens; we capture
+      these tokens and emit them</span>
+    <span class="k">while</span> <span class="p">(</span><span class="">char</span> :<span class="">=</span> <span class="nb">read</span><span class="p">(</span><span class="p">)</span><span class="p">)</span> <span class="">≠</span> <span class="">'</span><span class="">\</span><span class="">n'</span>:
+        <span class="nb">yield</span> <span class="">char</span>
+
+
+    <span class="nb">yield</span> <span class="">'</span><span class="">\</span><span class="">n'</span>
+
+</code></pre></div>
+
 <p>The <code class="highlighter-rouge">count-number-of-whitespaces</code> function should return the number of whitespace characters at the beginning of the current line. We may think of several ways of implementing this function; for instance, the leading whitespace may be discarded, or fed into the regexps. Python discards all whitespace, but ignores indentation between delimiters. By the way, do you notice something off-side-ruleish about the multiline comments? All the code show is parsed with the same parsing techniques that we will describe in this blog.</p>
 
 <h2 id="generalizing-the-off-side-rule">Generalizing the off-side rule</h2>

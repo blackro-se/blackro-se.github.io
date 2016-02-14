@@ -262,9 +262,37 @@
 
 <p>Within quotation, the escape characters <code class="highlighter-rouge">~</code> and <code class="highlighter-rouge">~@</code> will serve the same function as <code class="highlighter-rouge">,</code> and <code class="highlighter-rouge">,@</code> in Lisp, namely <em>evaluate the expression within the escape, and insert it in this code position</em> (in the second case the expression is interpreted as a sequence, and each element is inserted in turn). For instance, one could define a <code class="highlighter-rouge">macromap</code> macro, which applies a given piece of code to each of its arguments:</p>
 
+<div class="highlight"><pre><code><span class="k">defmacro</span> <span class="k">macromap</span><span class="p">(</span> <span class="">head</span>, <span class=""></span><span class="p">)</span>:
+    <span class="">items</span> :<span class="">=</span> <span class="">‘</span><span class="">~</span><span class="">head</span> <span class="">~</span><span class="">itm’</span> <span class="k">for</span> <span class="">itm</span> <span class="k">in</span> <span class=""></span>
+    <span class="k">return</span> <span class="">‘block</span> <span class="">~@</span><span class="">items’</span>
+
+<span class="c">#</span><span class="c"> For instance, we may now do</span>
+<span class="k">macromap</span> <span class="k">assert</span>
+    <span class="">my-var</span> <span class="">=</span> <span class="">1</span>
+    <span class="">test-something</span><span class="p">(</span><span class="p">)</span>
+
+<span class="c">#</span><span class="c"> and this will be macro-expanded into</span>
+<span class="k">block</span>:
+    <span class="k">assert</span> <span class="">my-var</span> <span class="">=</span> <span class="">1</span>
+    <span class="k">assert</span> <span class="">test-something</span><span class="p">(</span><span class="p">)</span>
+
+</code></pre></div>
+
 <p>The beauty of having a recursive descent design is that there is really nothing special going on inside the code quotation. It is implemented via a recursive call to the standard parser.</p>
 
 <p>To start getting a feel for the pleasantries of having multiple ways of denoting forms, here is an alternative way of defining the macro above:</p>
+
+<div class="highlight"><pre><code><span class="k">defmacro</span>
+    <span class="k">macromap</span> <span class="">head</span>
+        <span class=""></span>
+    <span class="k">set</span> <span class="">items</span>
+        <span class="k">for</span> <span class="">itm</span> <span class="k">in</span> <span class=""></span>
+           <span class="">‘</span><span class="">~</span><span class="">head</span> <span class="">~</span><span class="">itm’</span>
+    <span class="k">return</span> <span class="k">quote</span>
+        <span class="k">block</span>
+            <span class="">~@</span><span class="">items</span>
+
+</code></pre></div>
 
 
 </div>
